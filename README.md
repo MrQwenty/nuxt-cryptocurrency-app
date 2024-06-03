@@ -130,3 +130,30 @@ assets/
 nuxt.config.js
 tsconfig.json
 ```
+
+### Risposte alle Domande
+
+1. **Organizzazione del Progetto in Nuxt:**
+
+   - **Struttura del progetto:** Utilizzare una struttura basata sull'atomic design per migliorare la manutenibilità e la riusabilità dei componenti.
+   - **Funzionalità da utilizzare:** Utilizzare SSR per la generazione lato server per la SEO, e Vuex per gestire lo stato dell'applicazione.
+
+2. **Hosting Serverless:**
+
+   - **Funzionalità di Nuxt:** Utilizzare `nuxt build` e `nuxt start` per avviare l'applicazione in modalità serverless.
+   - **Accorgimenti:** Configurare le variabili d'ambiente correttamente e considerare l'utilizzo di `nuxt generate` per un sito statico.
+
+3. **Visibilità ai Robots:**
+
+   - **Configurazione Nuxt:** Assicurarsi di usare SSR e configurare i meta tag SEO nel file `nuxt.config.js`.
+
+4. **Avviso sul Cambio di Prezzo:**
+
+   - **Funzionalità di Vue.js:** Utilizzare Vuex per mantenere lo stato del prezzo precedente e watchers per monitorare i cambiamenti e colorare il prezzo di rosso.
+
+5. **Visualizzazione agli Utenti Italiani:**
+
+   - **Funzionalità di Nuxt:** Utilizzare middleware per controllare la geolocalizzazione dell'IP e mostrare la pagina solo agli utenti italiani.
+
+6. **Cache della Tabella:**
+   - **Soluzione:** Utilizzare un plugin o middleware per gestire la cache delle risposte API e configurare la cache per 5 minuti.
