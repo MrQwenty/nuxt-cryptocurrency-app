@@ -1,69 +1,132 @@
-# nuxt-cryptocurrency-app
+## Nuxt.js Cryptocurrency Dashboard
 
-## Build Setup
+### Descrizione del Progetto
+
+Questo progetto è una dashboard di criptovalute sviluppata con Nuxt.js, TypeScript, e Tailwind CSS. Mostra le prime 100 criptovalute ordinate per Market Cap utilizzando le API di CoinMarketCap. La pagina è ottimizzata per i motori di ricerca con contenuti generati server-side (SSR) e caricamento dinamico della tabella client-side con uno spinner di caricamento.
+
+### Funzionalità
+
+- **Server-Side Rendering (SSR)** per ottimizzare la visibilità sui motori di ricerca.
+- **Visualizzazione delle criptovalute** con nome, simbolo, prezzo, offerta circolante e ultimo aggiornamento.
+- **Aggiornamento dinamico** dei dati delle criptovalute client-side.
+- **Utilizzo di Vuex** per la gestione dello stato.
+- **Spinner di caricamento** per migliorare l'esperienza utente durante il caricamento dei dati.
+- **Notifica di cambiamento del prezzo** di Bitcoin colorando il prezzo di rosso se cambia dall'ultima visita dell'utente.
+
+### Requisiti
+
+- Node.js v14 o superiore
+- NPM o Yarn
+
+### Installazione
+
+1. Clonare il repository da GitHub:
+
+   ```bash
+   git clone https://github.com/username/nuxt-cryptocurrency-app.git
+   cd nuxt-cryptocurrency-app
+   ```
+
+2. Installare le dipendenze:
+
+   ```bash
+   npm install
+   ```
+
+3. Configurare le variabili d'ambiente:
+
+   Creare un file `.env` nella radice del progetto e aggiungere la tua API key di CoinMarketCap:
+
+   ```env
+   CMC_API_KEY=your_coinmarketcap_api_key
+   ```
+
+### Esecuzione in Locale
+
+Per eseguire il progetto in locale, utilizzare il comando:
 
 ```bash
-# install dependencies
-$ npm install
-
-# serve with hot reload at localhost:3000
-$ npm run dev
-
-# build for production and launch server
-$ npm run build
-$ npm run start
-
-# generate static project
-$ npm run generate
+npm run dev
 ```
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
+### Distribuzione su Vercel o Netlify
 
-## Special Directories
+#### Distribuzione su Vercel
 
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
+1. **Installare Vercel CLI** (se non è già installato):
 
-### `assets`
+   ```bash
+   npm install -g vercel
+   ```
 
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
+2. **Effettuare il login su Vercel**:
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
+   ```bash
+   vercel login
+   ```
 
-### `components`
+3. **Distribuire il progetto**:
 
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
+   Nella directory del progetto, eseguire:
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
+   ```bash
+   vercel
+   ```
 
-### `layouts`
+   Seguire le istruzioni per configurare il progetto. Assicurarsi di aggiungere la variabile d'ambiente `CMC_API_KEY` su Vercel.
 
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
+#### Distribuzione su Netlify
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
+1. **Installare Netlify CLI** (se non è già installato):
 
+   ```bash
+   npm install -g netlify-cli
+   ```
 
-### `pages`
+2. **Effettuare il login su Netlify**:
 
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
+   ```bash
+   netlify login
+   ```
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
+3. **Distribuire il progetto**:
 
-### `plugins`
+   Nella directory del progetto, eseguire:
 
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
+   ```bash
+   netlify init
+   ```
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
+   Seguire le istruzioni per configurare il progetto. Assicurarsi di aggiungere la variabile d'ambiente `CMC_API_KEY` su Netlify.
 
-### `static`
+4. **Costruire e distribuire il progetto**:
 
-This directory contains your static files. Each file inside this directory is mapped to `/`.
+   ```bash
+   npm run build
+   netlify deploy --prod
+   ```
 
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
+### Struttura del Progetto
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
-
-### `store`
-
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+```plaintext
+components/
+  atoms/
+    LoadingSpinner.vue
+  molecules/
+    TableHeader.vue
+    TableRow.vue
+  organisms/
+    CryptocurrencyTable.vue
+layouts/
+pages/
+  index.vue
+plugins/
+  axios.ts
+store/
+  index.ts
+assets/
+  css/
+    tailwind.css
+nuxt.config.js
+tsconfig.json
+```
