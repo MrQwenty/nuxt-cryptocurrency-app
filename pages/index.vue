@@ -15,13 +15,14 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapState, mapActions } from "vuex";
+import { mapState } from "vuex";
 import CryptocurrencyTable from "~/components/organisms/CryptocurrencyTable.vue";
 
 export default defineComponent({
   components: {
     CryptocurrencyTable,
   },
+  middleware: ["geo-redirect"], // Applica il middleware
   async asyncData({ store }: any) {
     await store.dispatch("fetchCryptocurrencies");
   },
