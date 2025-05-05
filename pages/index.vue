@@ -1,6 +1,6 @@
 <template>
   <div class="p-8">
-    <h1 class="text-2xl font-bold mb-4">
+    <h1 class="mb-4 text-2xl font-bold">
       Il valore di Bitcoin è ${{ formatPrice(bitcoinPrice) }}
     </h1>
     <p class="mb-8">

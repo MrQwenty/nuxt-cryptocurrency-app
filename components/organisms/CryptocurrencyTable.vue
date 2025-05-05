@@ -1,20 +1,29 @@
 <template>
   <div>
-    <div v-if="loading" class="text-center my-8">
+    <!-- Loading spinner con messaggio -->
+    <div v-if="loading" class="flex flex-col items-center justify-center py-12">
       <LoadingSpinner />
+      <p class="mt-4 text-gray-600">Caricamento dati in corso...</p>
     </div>
-    <div v-else>
+
+    <!-- Tabella dati -->
+    <div v-else-if="cryptocurrencies && cryptocurrencies.length > 0">
       <table class="min-w-full bg-white border border-gray-200">
         <TableHeader />
         <tbody>
           <TableRow
             v-for="(crypto, index) in cryptocurrencies"
-            :key="crypto.id"
+            :key="crypto.id || index"
             :crypto="crypto"
             :index="index + 1"
           />
         </tbody>
       </table>
+    </div>
+
+    <!-- Messaggio quando non ci sono dati -->
+    <div v-else class="my-8 text-center text-gray-500">
+      <p>Nessuna criptovaluta disponibile</p>
     </div>
   </div>
 </template>
@@ -43,7 +52,15 @@ export default defineComponent({
     }),
   },
   mounted() {
-    this.loading = false;
+    this.loading = true;
+    this.$store
+      .dispatch("fetchCryptocurrencies")
+      .then(() => {
+        this.loading = false;
+      })
+      .catch(() => {
+        this.loading = false;
+      });
   },
 });
 </script>
