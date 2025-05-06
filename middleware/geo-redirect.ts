@@ -20,14 +20,14 @@ export default async function ({ req, redirect }) {
       const host = req.headers.host || '';
       console.log('Host della richiesta:', host);
 
-      // Consenti sempre l'accesso su localhost e su Vercel
+      // Consenti sempre l'accesso su localhost e sul dominio specifico di Vercel
       if (
         cleanIp === '127.0.0.1' || // localhost IPv4
         cleanIp === '::1' || // localhost IPv6
-        host.includes('vercel.app') // Dominio Vercel
+        host === 'nuxt-cryptocurrency-app.vercel.app' // Dominio specifico di Vercel
       ) {
-        console.log('Accesso consentito su localhost o Vercel');
-        countryCode = 'IT'; // Simula l'Italia su localhost o Vercel
+        console.log('Accesso consentito su localhost o dominio Vercel');
+        countryCode = 'IT'; // Simula l'Italia su localhost o dominio Vercel
       } else {
         // Chiamata al servizio di geolocalizzazione (esempio: ip-api.com)
         const response = await axios.get(`http://ip-api.com/json/${cleanIp}`);
@@ -36,9 +36,6 @@ export default async function ({ req, redirect }) {
       }
     } catch (error) {
       console.error('Errore durante la geolocalizzazione:', (error as any).message || error);
-
-      // Consenti l'accesso in caso di errore
-      countryCode = 'IT'; // Simula l'Italia in caso di errore
     }
   }
 
