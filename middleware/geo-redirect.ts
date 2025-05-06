@@ -35,13 +35,9 @@ export default async function ({ req, redirect }) {
         countryCode = response.data.countryCode || 'UNKNOWN';
       }
     } catch (error) {
-      if (error instanceof Error) {
-        console.error('Errore durante la geolocalizzazione:', error.message);
-      } else {
-        console.error('Errore durante la geolocalizzazione:', error);
-      }
+      console.error('Errore durante la geolocalizzazione:', (error as any).message || error);
 
-      // In caso di errore, consenti l'accesso per evitare blocchi
+      // Consenti l'accesso in caso di errore
       countryCode = 'IT'; // Simula l'Italia in caso di errore
     }
   }
