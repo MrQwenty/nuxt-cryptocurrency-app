@@ -36,6 +36,12 @@ export default async function ({ req, redirect }) {
         const response = await axios.get(`http://ip-api.com/json/${realIp}`);
         console.log('Risposta geolocalizzazione:', response.data);
         countryCode = response.data.countryCode || 'UNKNOWN';
+
+        // Se il dominio è Vercel e il paese è "US", consenti l'accesso
+        if (host === 'nuxt-cryptocurrency-app.vercel.app' && countryCode === 'US') {
+          console.log('Accesso consentito per dominio Vercel anche se il paese è US');
+          countryCode = 'IT'; // Simula l'Italia per Vercel
+        }
       } else {
         console.log('Impossibile determinare l\'IP reale, accesso negato.');
       }
