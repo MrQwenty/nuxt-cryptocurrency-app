@@ -15,10 +15,14 @@ export default async function ({ req, redirect }) {
       // Rimuovi eventuali prefissi IPv6
       const cleanIp = ipAddress.toString().replace(/^::ffff:/, '');
 
-      // Consenti sempre l'accesso su localhost
-      if (cleanIp === '127.0.0.1' || cleanIp === '::1') {
-        console.log('Accesso consentito su localhost');
-        countryCode = 'IT'; // Simula l'Italia su localhost
+      // Consenti sempre l'accesso su localhost e su Vercel
+      if (
+        cleanIp === '127.0.0.1' || // localhost IPv4
+        cleanIp === '::1' || // localhost IPv6
+        req.headers.host?.includes('vercel.app') // Dominio Vercel
+      ) {
+        console.log('Accesso consentito su localhost o Vercel');
+        countryCode = 'IT'; // Simula l'Italia su localhost o Vercel
       } else {
         // Chiamata al servizio di geolocalizzazione (esempio: ip-api.com)
         const response = await axios.get(`http://ip-api.com/json/${cleanIp}`);
