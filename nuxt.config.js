@@ -4,6 +4,9 @@ export default {
   generate: {
     dir: "dist",
   },
+  headers: {
+    "Access-Control-Allow-Origin": "*",
+  },
   head: {
     title: "Criptovalute",
     meta: [
