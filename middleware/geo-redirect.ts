@@ -10,23 +10,38 @@ export default async function ({ req, redirect }) {
       const ipAddress =
         req.headers['x-forwarded-for'] || req.connection.remoteAddress || '0.0.0.0';
 
+      console.log('Indirizzo IP rilevato:', ipAddress);
+
       // Rimuovi eventuali prefissi IPv6
       const cleanIp = ipAddress.toString().replace(/^::ffff:/, '');
 
-      // Chiamata a un servizio di geolocalizzazione (es. ip-api.com)
-      const response = await axios.get(`http://ip-api.com/json/${cleanIp}`);
-      countryCode = response.data.countryCode || 'UNKNOWN';
+      // Consenti sempre l'accesso su localhost
+      if (cleanIp === '127.0.0.1' || cleanIp === '::1') {
+        console.log('Accesso consentito su localhost');
+        countryCode = 'IT'; // Simula l'Italia su localhost
+      } else {
+        // Chiamata al servizio di geolocalizzazione (esempio: ip-api.com)
+        const response = await axios.get(`http://ip-api.com/json/${cleanIp}`);
+        console.log('Risposta geolocalizzazione:', response.data);
+        countryCode = response.data.countryCode || 'UNKNOWN';
+      }
     } catch (error) {
       if (error instanceof Error) {
         console.error('Errore durante la geolocalizzazione:', error.message);
       } else {
         console.error('Errore durante la geolocalizzazione:', error);
       }
+
+      // In caso di errore, consenti l'accesso per evitare blocchi
+      countryCode = 'IT'; // Simula l'Italia in caso di errore
     }
   }
 
   // Reindirizza se l'utente non è in Italia
   if (countryCode !== 'IT') {
+    console.log('Accesso negato: non in Italia');
     return redirect('/accesso-negato');
   }
+
+  console.log('Accesso consentito: utente in Italia');
 }
