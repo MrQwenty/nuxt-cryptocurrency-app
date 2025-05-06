@@ -29,6 +29,7 @@ export const mutations: MutationTree<RootState> = {
 export const actions: ActionTree<RootState, RootState> = {
   async fetchCryptocurrencies({ commit, state }) {
     const cacheDuration = 5 * 60 * 1000; // 5 minuti in millisecondi
+    // cache duration test 10 secondi
 
     const now = Date.now()
 
@@ -40,6 +41,9 @@ export const actions: ActionTree<RootState, RootState> = {
 
     // Effettua la chiamata API se i dati non sono in cache o sono scaduti
     const response = await this.$axios.$get('cryptocurrency/listings/latest', {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
       params: {
         start: 1,
         limit: 100,
