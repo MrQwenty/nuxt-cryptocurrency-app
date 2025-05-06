@@ -28,14 +28,26 @@ export default async function ({ req, redirect }) {
       ) {
         console.log('Accesso consentito su localhost o dominio Vercel');
         countryCode = 'IT'; // Simula l'Italia su localhost o dominio Vercel
-      } else {
-        // Chiamata al servizio di geolocalizzazione (esempio: ip-api.com)
-        const response = await axios.get(`http://ip-api.com/json/${cleanIp}`);
+      } else if (req.headers['x-forwarded-for']) {
+        // Chiamata al servizio di geolocalizzazione con l'IP reale dell'utente
+        const realIp = req.headers['x-forwarded-for'].split(',')[0].trim();
+        console.log('Indirizzo IP reale:', realIp);
+
+        const response = await axios.get(`http://ip-api.com/json/${realIp}`);
         console.log('Risposta geolocalizzazione:', response.data);
         countryCode = response.data.countryCode || 'UNKNOWN';
+      } else {
+        console.log('Impossibile determinare l\'IP reale, accesso negato.');
       }
     } catch (error) {
-      console.error('Errore durante la geolocalizzazione:', (error as any).message || error);
+      if (error instanceof Error) {
+        console.error('Errore durante la geolocalizzazione:', error.message);
+      } else {
+        console.error('Errore durante la geolocalizzazione:', error);
+      }
+
+      // Consenti l'accesso in caso di errore
+      countryCode = 'IT'; // Simula l'Italia in caso di errore
     }
   }
 
