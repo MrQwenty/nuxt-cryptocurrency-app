@@ -1,7 +1,6 @@
 export default {
   ssr: true,
   target: "server",
-  buildDir: "dist", // Cambia la directory di build in "dist"
   generate: {
     dir: "dist",
   },
