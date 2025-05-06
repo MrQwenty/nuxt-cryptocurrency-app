@@ -22,7 +22,7 @@ export default defineComponent({
   components: {
     CryptocurrencyTable,
   },
-  middleware: ["geo-redirect"], // Applica il middleware
+  //middleware: ["geo-redirect"], // Applica il middleware
   async asyncData({ store }: any) {
     await store.dispatch("fetchCryptocurrencies");
   },
