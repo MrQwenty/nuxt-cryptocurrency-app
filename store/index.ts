@@ -41,9 +41,7 @@ export const actions: ActionTree<RootState, RootState> = {
 
     // Effettua la chiamata API se i dati non sono in cache o sono scaduti
     const response = await this.$axios.$get('cryptocurrency/listings/latest', {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-      },
+
       params: {
         start: 1,
         limit: 100,

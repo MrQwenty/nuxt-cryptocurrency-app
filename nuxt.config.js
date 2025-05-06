@@ -24,6 +24,9 @@ export default {
     CMC_API_KEY:
       process.env.CMC_API_KEY || "c3f841e7-0fff-4d8e-985f-248d29747571",
   },
+  serverMiddleware: [
+    "~/server/cors.js", // ✅ CORS attivo
+  ],
   css: ["@/assets/css/tailwind.css"],
   build: {
     postcss: {
