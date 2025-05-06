@@ -1,6 +1,6 @@
 <template>
   <tr class="border-b hover:bg-gray-100">
-    <td class="px-4 py-2 text-center">{{ crypto.name }}</td>
+    <td class="px-4 py-2 font-semibold text-center">{{ crypto.name }}</td>
     <td class="px-4 py-2 text-center">{{ crypto.symbol }}</td>
     <td class="px-4 py-2 text-center">
       $
